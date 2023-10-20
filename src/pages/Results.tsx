@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Results = () => {
   const location = useLocation();
@@ -13,6 +14,21 @@ const Results = () => {
 
   const matchesToPrintParts = matchesToPrint?.split("*");
   const resultsToPrintParts = resultsToPrint?.split("*");
+
+  const postMatchesInDatabase = async (match: string) => {
+    try {
+      await axios.post("http://localhost:5000/api/matches", { match });
+      //alert("Data posted to the server!");
+    } catch (error) {
+      console.error("Error occurred", error);
+      //alert("Error occurred while posting data");
+    }
+  };
+
+  if (matchesToPrintParts) {
+    for (let i = 0; i < matchesToPrintParts?.length; i++)
+      postMatchesInDatabase(matchesToPrintParts[i]);
+  }
 
   if (resultsToPrintParts) {
     if (scoringSystem === "win/draw/loss") {
