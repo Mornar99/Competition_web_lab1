@@ -25,7 +25,9 @@ app.use(cors(corsOptions));
 // });
 
 const pool = new Pool({
-  connectionString: process.env.DBConfigLink,
+  //connectionString: process.env.DBConfigLink,
+  connectionString:
+    "postgres://competitions_data_user:yXp9eRTiwZnWSV6QF6QTs4bL7OEuYkOs@dpg-ckns5v1rfc9c73evehl0-a.frankfurt-postgres.render.com/competitions_data",
   ssl: {
     rejectUnauthorized: false,
   },
