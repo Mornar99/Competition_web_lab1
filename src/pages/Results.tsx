@@ -25,9 +25,24 @@ const Results = () => {
     }
   };
 
+  const postResultsInDatabase = async (result: string) => {
+    try {
+      await axios.post("http://localhost:5000/api/results", { result });
+      //alert("Data posted to the server!");
+    } catch (error) {
+      console.error("Error occurred", error);
+      //alert("Error occurred while posting data");
+    }
+  };
+
   if (matchesToPrintParts) {
     for (let i = 0; i < matchesToPrintParts?.length; i++)
       postMatchesInDatabase(matchesToPrintParts[i]);
+  }
+
+  if (resultsToPrintParts) {
+    for (let i = 0; i < resultsToPrintParts?.length; i++)
+      postResultsInDatabase(resultsToPrintParts[i]);
   }
 
   if (resultsToPrintParts) {

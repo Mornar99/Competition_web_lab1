@@ -49,6 +49,18 @@ app.post("/api/matches", async (req, res) => {
   }
 });
 
+app.post("/api/results", async (req, res) => {
+  const { result } = req.body;
+  try {
+    const query = "INSERT INTO results VALUES ($1)";
+    await pool.query(query, [result]);
+    res.status(201).send("Data inserted successfully");
+  } catch (error) {
+    console.error("Error occurred", error);
+    res.status(500).send("Error occurred");
+  }
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
